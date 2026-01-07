@@ -25,4 +25,4 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        pytest tests/unit/coal/ --cov=cosmotech.coal --cov-report=term
+        pytest tests/ --cov=cosmotech.aip --cov-report=term
