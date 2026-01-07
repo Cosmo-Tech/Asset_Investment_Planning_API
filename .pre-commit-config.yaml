@@ -26,7 +26,7 @@ repos:
     hooks:
     -   id: pytest-check
         name: pytest-check
-        entry: pytest tests/unit/coal/ --cov=cosmotech.aip --cov-report=term-missing
+        entry: pytest tests/ --cov=cosmotech.aip --cov-report=term-missing
         language: system
         pass_filenames: false
         always_run: true
