@@ -5,11 +5,11 @@ Custom Data API for AIP project
 ## Build image
 
 ```
-docker build . -t cosmotech/aip_aip:latest
+docker build . -t cosmotech/aip_api:latest
 ```
 
 ## Run image localy
 
 ```
-docker run -ti --net host -p 8000:8000 cosmotech/aip_api
+docker run -ti --net host -p 8080:8080 cosmotech/aip_api
 ```

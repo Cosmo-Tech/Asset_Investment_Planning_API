@@ -1,15 +1,28 @@
+import os
 from typing import Annotated
 
 import jwt
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request
 from fastapi.security import OAuth2AuthorizationCodeBearer
 from jwt import PyJWKClient
 
-app = FastAPI()
+from cosmotech.aip import __version__
 
+ROOT_URI = os.environ.get("ROOT_URI", "/aip_api")
+SERVER_URL = "https://assetaip-dev.azure.platform.cosmotech.com"
 
-keycloack_realm = "https://kubernetes.cosmotech.com/keycloak/realms/sphinx"
+app = FastAPI(
+    version=__version__,
+    docs_url="/swagger",
+    redoc_url="/swagger/redoc",
+    swagger_ui_oauth2_redirect_url="/swagger/oauth2-redirect",
+    openapi_url="/openapi.json",
+    title="Asset Investment Planning",
+    description="API for Asset Investment Planning",
+    root_path=ROOT_URI,
+)
 
+keycloack_realm = "https://assetaip-dev.azure.platform.cosmotech.com/keycloak/realms/tenant-assetaip-dev"
 
 oauth_2_scheme = OAuth2AuthorizationCodeBearer(
     tokenUrl=f"{keycloack_realm}/protocol/openid-connect/token",
@@ -43,7 +56,7 @@ async def root(token: Annotated[str, Depends(valid_access_token)]):
 
 
 @app.get("/about")
-async def root():
+async def root(request: Request):
     from cosmotech.aip import __version__
 
     return {"version": __version__}
